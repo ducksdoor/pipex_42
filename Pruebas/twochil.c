@@ -1,11 +1,12 @@
 
 #include "pipex.h"
-
-int main(int argc, char* argv[])
+/* int main(int argc, char* argv[]) */
+int main(void)
 {
 	int	fd1[2],  fd2; /*fd2 sera text.txt */
 	int	status;
 	int	pid;
+
 
 	pipe (fd1); /* comunica ls y wc */
 	
@@ -41,5 +42,5 @@ int main(int argc, char* argv[])
 	/* wait para cada hijo */
 	wait(&status);
 	wait(&status);
-	return 0;
+	return (0);
 }
