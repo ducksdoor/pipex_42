@@ -11,7 +11,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SOURCE = pipex.c children.c
+SOURCE = pipex.c children.c rute.c utils.c
 
 
 %.o: %.c
