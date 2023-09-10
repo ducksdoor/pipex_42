@@ -26,7 +26,8 @@
 /* # define FILE_NAME	"file.txt" */
 
 /* int main(void); */
-int		main(int argc, char *argv[]);
-void	ft_first_children(int *fd, int pid1, char *file, char *comand);
-void	ft_second_children(int *fd, int pid2, char *file, char *comand);
+int		main(int argc, char **argv, char **envp);
+void	ft_first_children(int *fd, int pid1, char **argv, char **envp);
+void	ft_second_children(int *fd, int pid2, char **argv);
+void	ft_exe(char *command, char **envp);
 #endif

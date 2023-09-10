@@ -11,3 +11,13 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+//      el programa busca de aqui     //
+//PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
+
+void	ft_exe(char *command, char **envp)
+{
+	int	x;
+	x = execve("/bin", &command, envp);
+}
+

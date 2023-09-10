@@ -14,13 +14,13 @@
 #include "pipex.h"
 #include "libft/libft.h"
 
-void	ft_first_children(int *fd, int pid1, char *file, char *comand)
+void	ft_first_children(int *fd, int pid1, char **argv, char **envp)
 {
 	int		texto;
 	char	*text_file;
 
-	printf("%s\n", comand);
-	texto = open(file, O_RDONLY);
+	printf("%s\n", argv[2]);
+	texto = open(argv[1], O_RDONLY);
 	if (texto == -1)
 	{
 		perror("open");
@@ -33,16 +33,20 @@ void	ft_first_children(int *fd, int pid1, char *file, char *comand)
 	{
 		//printf("%s\n", text_file);
 		close(fd[READ_END]);
+		ft_printf("Aqui no esta redireccionado nada?");
 		dup2(fd[WRITE_END], STDOUT_FILENO);
-		write(fd[WRITE_END], text_file, ft_strlen(text_file));
+		ft_printf("Esto saldra en pantalla?");
+		//write(fd[WRITE_END], text_file, ft_strlen(text_file));
+		// TOOOO DOOOO POR AQUI!
+		ft_exe(argv[2], envp);
+		//Final del todo. claramente está sin crear, tienes que ir al archivo rute!!!! 
 		close(fd[WRITE_END]);
-		exit(0);
 	}
 }
 /* 		perror("execlp");
 		exit(EXIT_FAILURE); */
 
-void	ft_second_children(int *fd, int pid2, char *comand, char *file)
+void	ft_second_children(int *fd, int pid2, char **argv)
 {
 	int	fd_dest;
 	char	*buf;
@@ -54,7 +58,7 @@ void	ft_second_children(int *fd, int pid2, char *comand, char *file)
 		perror("malloc");
 		exit(1);
 	} */
-	if (!file || !comand)
+	if (!argv[4] || !argv[3])
 		//exit(1);
 		;
 	if (pid2 < 0)
@@ -62,7 +66,7 @@ void	ft_second_children(int *fd, int pid2, char *comand, char *file)
 	if (pid2 == 0)
 	{
 		dup2(fd[READ_END], STDIN_FILENO);
-		fd_dest = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fd_dest = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		dup2(fd_dest, STDOUT_FILENO);
 		bytesRead = read(fd[READ_END], &buf, sizeof(buf));
 		while (bytesRead > 0)
