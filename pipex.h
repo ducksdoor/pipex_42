@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef PIPEX_H
 # define PIPEX_H
 # include "libft/libft.h"
@@ -20,15 +19,12 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <string.h>
-
+# include <errno.h>
 # define READ_END	0
 # define WRITE_END	1
-/* # define FILE_NAME	"file.txt" */
 
-/* int main(void); */
-int		main(int argc, char **argv, char **envp);
 void	ft_first_children(int *fd, int pid1, char **argv, char **envp);
-void	ft_second_children(int *fd, int pid2, char **argv);
+void	ft_second_children(int *fd, int pid2, char **argv, char **envp);
 void	ft_exe(char *command, char **envp);
 char	*ft_search(char **env);
 char	*ft_search2(char *object, char *command);

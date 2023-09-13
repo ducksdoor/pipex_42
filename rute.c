@@ -12,31 +12,24 @@
 
 #include "pipex.h"
 
-//      el programa busca de aqui     //
-//PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
-
-
 char	*ft_search2(char *object, char *command)
 {
-	char **path;
-	int cont;
-	char *finish;
+	char	**path;
+	int		cont;
+	char	*finish;
 
 	path = ft_split(object + 5, ':');
-//	ft_printf("%s\n", path[0]);
 	cont = 0;
-	while (path)
+	while (path[cont])
 	{
 		finish = ft_strjoin(path[cont], "/");
 		finish = ft_strjoin(finish, command);
 		if (access(finish, F_OK) == 0)
-		{
-//			ft_printf("|%s|\n", finish);
 			return (finish);
-		}
 		cont++;
 	}
-	return (NULL);
+	perror("command:");
+	exit(errno);
 }
 
 char	*ft_search(char **env)
@@ -52,26 +45,22 @@ char	*ft_search(char **env)
 			return (routes);
 		pos++;
 	}
-	return (NULL);
+	perror("path:");
+	exit(errno);
 }
 
 void	ft_exe(char *command, char **envp)
 {
-	int		x;
 	char	*object;
 	char	*finish;
+	char	**cmd;
 
 	object = ft_search(envp);
-//	ft_printf("%s\n", object);
-	if (object == NULL)
-		exit(1);
-	finish = ft_search2(object, command);
-	ft_printf("|%s|\n", finish);
-	x = execve(finish, &command, envp);
-	if (x == -1)
-	{
-		printf("esto no rula del todo\n");
-		exit(1);
-	}
-	printf("encontraste la ruta\n");
+	cmd = ft_split(command, ' ');
+	finish = ft_search2(object, cmd[0]);
+	dprintf(2, "cmd: %s\n", finish);
+	dprintf(2, "cmd: %s\n", cmd[0]);
+	execve(finish, cmd, envp);
+	perror(command);
+	exit(errno);
 }

@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	int	fd[2];
 	int	pid1;
-	int pid2;
+	int	pid2;
 
 	if (argc != 5)
 	{
@@ -24,14 +24,15 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	if (pipe(fd) == -1)
-		return 1;
+		return (1);
 	pid1 = fork();
+	dprintf(2, "hola\n");
 	ft_first_children(fd, pid1, argv, envp);
-	close(fd[WRITE_END]);
 	pid2 = fork();
-	ft_second_children(fd, pid2, argv);
+	ft_second_children(fd, pid2, argv, envp);
 	close(fd[READ_END]);
+	close(fd[WRITE_END]);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
-	return 42;
+	return (42);
 }
