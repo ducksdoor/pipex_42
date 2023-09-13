@@ -31,15 +31,11 @@ void	ft_first_children(int *fd, int pid1, char **argv, char **envp)
 		exit(1);
 	if (pid1 == 0)
 	{
-		//printf("%s\n", text_file);
 		close(fd[READ_END]);
-		ft_printf("Aqui no esta redireccionado nada?");
+		ft_printf("el miedo mata a la mente\n");
 		dup2(fd[WRITE_END], STDOUT_FILENO);
-		ft_printf("Esto saldra en pantalla?");
-		//write(fd[WRITE_END], text_file, ft_strlen(text_file));
-		// TOOOO DOOOO POR AQUI!
+		//ft_printf("Esto es patata?\n");
 		ft_exe(argv[2], envp);
-		//Final del todo. claramente está sin crear, tienes que ir al archivo rute!!!! 
 		close(fd[WRITE_END]);
 	}
 }
