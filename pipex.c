@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	if (pipe(fd) == -1)
 		return (1);
 	pid1 = fork();
-	dprintf(2, "hola\n");
 	ft_first_children(fd, pid1, argv, envp);
 	pid2 = fork();
 	ft_second_children(fd, pid2, argv, envp);
@@ -36,3 +35,13 @@ int	main(int argc, char **argv, char **envp)
 	waitpid(pid2, NULL, 0);
 	return (42);
 }
+/* to do
+
+0 leaks
+
+1 que acepte el path como ruta relativa
+2 que acepte el comando como ruta relativa
+
+
+
+*/

@@ -28,18 +28,18 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		dif = (unsigned char)s1[x] - (unsigned char)s2[x];
 	return (dif);
 }
-/*
+/* 
 #include <stdio.h>
 #include <string.h>
 
 int main(void)
 {
-	char s1[] = "abcdef";
-	char s2[] = "abc\375xx";
+	char s1[] = "abc";
+	char s2[] = "abc";
 	size_t	y;
 
 	y = 5;
 	printf("%d\n", ft_strncmp(s1, s2, y));
 
 	printf("%d\n", strncmp(s1, s2, y));
-}*/
+} */

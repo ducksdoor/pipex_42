@@ -1,3 +1,7 @@
 POCO a POCO
-a ver, no entiendo porque mi gnl no lee esta patata..
+a ver, esto ya funciona,
+te falta algun to do .... nada que sea mucha cosa
 porque patata.
+
+to do
+si no hay enviroment hay que añadir ./ comando

@@ -28,7 +28,7 @@ char	*ft_search2(char *object, char *command)
 			return (finish);
 		cont++;
 	}
-	perror("command:");
+	perror("command");
 	exit(errno);
 }
 
@@ -45,8 +45,7 @@ char	*ft_search(char **env)
 			return (routes);
 		pos++;
 	}
-	perror("path:");
-	exit(errno);
+	return (NULL);
 }
 
 void	ft_exe(char *command, char **envp)
@@ -55,12 +54,23 @@ void	ft_exe(char *command, char **envp)
 	char	*finish;
 	char	**cmd;
 
-	object = ft_search(envp);
+	object = NULL;
 	cmd = ft_split(command, ' ');
-	finish = ft_search2(object, cmd[0]);
-	dprintf(2, "cmd: %s\n", finish);
-	dprintf(2, "cmd: %s\n", cmd[0]);
+	if (ft_is_absolute(&cmd[0]))
+		finish = cmd[0];
+	else
+	{
+		if (envp == NULL)
+			finish = ft_strjoin ("./", cmd[0]);
+		else
+			object = ft_search(envp);
+			finish = ft_search2(object, cmd[0]);
+	}
 	execve(finish, cmd, envp);
 	perror(command);
 	exit(errno);
 }
+
+
+
+
