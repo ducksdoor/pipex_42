@@ -11,8 +11,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SOURCE = pipex.c utils.c children.c protect.c
-SRCSBONUS = bonus.c utils.c children.c protect.c
+SOURCE = pipex.c utils.c children.c protect.c bonus.c
 
 %.o: %.c
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN)$< $(DEF_COLOR)"
@@ -26,22 +25,12 @@ all: ${NAME}
 	
 ${NAME}: ${OBJS}
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN) libft $(DEF_COLOR)"
-				@make bonus -sC ./libft
+				@make all -sC ./libft
 				@$(CC) $(SOURCE) -o $(NAME) -Llibft -lft
 				@echo "\n$(GREEN) Created $(NAME) ✓$(DEF_COLOR)\n"
 				@echo "$(YELLOW)    _       _       _"
 				@echo " __(.)<  __(.)>  __(.)=    Cuak!"
 				@echo " \___)   \___)   \___)$(DEF_COLOR)"
-
-bonus: ${OBJS_BONUS}
-				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN) libft $(DEF_COLOR)"
-				@make bonus -sC ./libft
-				@$(CC) $(SRCSBONUS) -o $(NAME) -Llibft -lft
-				@echo "\n$(GREEN) Created $(NAME) ✓$(DEF_COLOR)\n"
-				@echo "$(RED)    _       _       _"
-				@echo " __(.)<  __(.)>  __(.)=    Cuak!"
-				@echo " \___)   \___)   \___)$(DEF_COLOR)"
-
 
 clean:
 				@make clean -C ./libft
@@ -54,7 +43,7 @@ fclean:
 				@${RM} ${OBJS} ${OBJS_BONUS}
 				@echo "\n${GRAY} ◎ $(RED)All objects and executable cleaned successfully${GRAY} ◎$(DEF_COLOR)\n"
 
-re: fclean all
+re: fclean all 
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re 
 

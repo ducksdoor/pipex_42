@@ -23,6 +23,8 @@
 # define READ_END	0
 # define WRITE_END	1
 
+void	ft_pipex(char **argv, char **envp);
+void	ft_big_pipex(int argc, char **argv, char **envp);
 void	ft_first_children(int *fd, int pid1, char **argv, char **envp);
 void	ft_second_children(int *fd, int pid2, char **argv, char **envp);
 void	ft_exe(char *command, char **envp);

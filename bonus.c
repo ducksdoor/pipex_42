@@ -12,7 +12,38 @@
 
 #include "pipex.h"
 
-static void ft_middle_c(int *fd, int pidx, char **argv, char **envp, int x) 
+static void	ft_extra(int *fd, int pid2, char **argv, char **envp)
+{
+	int	fd_dest;
+	int	x;
+
+	x = 0;
+	while (argv)
+	{
+		x++;
+	}
+	if (pid2 < 0)
+		return ;
+	if (pid2 == 0)
+	{
+		close(fd[WRITE_END]);
+		dup2(fd[READ_END], STDIN_FILENO);
+		close(fd[READ_END]);
+		fd_dest = open(argv[x], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd_dest == -1)
+		{
+			perror("open");
+			exit(errno);
+		}
+		dup2(fd_dest, STDOUT_FILENO);
+		close(fd_dest);
+		ft_exe(argv[x - 1], envp);
+		perror("exe");
+		exit(errno);
+	}
+}
+
+static void	ft_middle_c(int *fd, int pidx, char *argv, char **envp)
 {
 	if (pidx < 0)
 		return ;
@@ -23,7 +54,7 @@ static void ft_middle_c(int *fd, int pidx, char **argv, char **envp, int x)
 		close(fd[READ_END]);
 		dup2(fd[WRITE_END], STDOUT_FILENO);
 		close(fd[WRITE_END]);
-		ft_exe(argv[x], envp);
+		ft_exe(argv, envp);
 		perror("exe");
 		exit(errno);
 	}
@@ -42,31 +73,35 @@ static void	ft_wait(int *pid, int x)
 	exit(1);
 }
 
-int	main(int argc, char **argv, char **envp)
+static void	ft_process(int narg, char **argv, char **envp)
 {
 	int	fd[2];
-	int	pid[argc - 3];
+	int	pid[100];
 	int	x;
-/* 
-	if (argc == 5)
-	{
-		ft_printf("Necesito más argumentos");
-		exit(1);
-	} */
+
 	if (pipe(fd) == -1)
-		return (1);
-	x = 0;
+		exit (1);
+	x = 1;
 	pid[x] = fork();
 	ft_first_children(fd, pid[x], argv, envp);
-	while (x < argc - 3)
+	while (x < narg)
 	{
 		x++;
 		pid[x] = fork();
-		ft_middle_c(fd, pid[x], argv, envp, (x + 2));
+		ft_middle_c(fd, pid[x], argv[x + 1], envp);
 	}
 	pid[x] = fork();
-	ft_second_children(fd, pid[x], argv, envp);
+	ft_extra(fd, pid[x], argv, envp);
 	close(fd[READ_END]);
 	close(fd[WRITE_END]);
 	ft_wait(pid, x);
+}
+
+void	ft_big_pipex(int argc, char **argv, char **envp)
+{
+	int	x;
+
+	x = argc - 3;
+	ft_process(x, argv, envp);
+	exit(1);
 }

@@ -24,12 +24,7 @@ void	ft_first_children(int *fd, int pid1, char **argv, char **envp)
 	if (pid1 == 0)
 	{
 		close(fd[READ_END]);
-		texto = open(argv[1], O_RDONLY);
-		if (texto == -1)
-		{
-			perror("open");
-			exit(errno);
-		}
+		texto = ft_open(argv[1], 1);
 		dup2(texto, STDIN_FILENO);
 		close(texto);
 		dup2(fd[WRITE_END], STDOUT_FILENO);
