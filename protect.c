@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   protect.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lortega- <lortega-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/02 16:24:43 by lortega-          #+#    #+#             */
-/*   Updated: 2023/09/16 21:31:33 by lortega-         ###   ########.fr       */
+/*   Created: 2023/09/17 00:47:32 by lortega-          #+#    #+#             */
+/*   Updated: 2023/09/17 00:47:45 by lortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+char	**ft_protsplit(char *str, char c)
 {
-	int	fd[2];
-	int	pid1;
-	int	pid2;
+	char	**result;
 
-	if (argc != 5)
+	result = ft_split(str, c);
+	if (!result)
 	{
-		ft_printf("Número incorrecto de argumentos");
-		exit(1);
+		perror("split");
+		exit(errno);
 	}
-	if (pipe(fd) == -1)
-		return (1);
-	pid1 = fork();
-	ft_first_children(fd, pid1, argv, envp);
-	pid2 = fork();
-	ft_second_children(fd, pid2, argv, envp);
-	close(fd[READ_END]);
-	close(fd[WRITE_END]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	return (result);
 }
+
+char	*ft_protstrjoin(char *s1, char *s2)
+{
+	char	*result;
+
+	result = ft_strjoin(s1, s2);
+	if (!result)
+	{
+		perror("split");
+		exit(errno);
+	}
+	return (result);
+}
+

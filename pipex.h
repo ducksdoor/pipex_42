@@ -29,4 +29,6 @@ void	ft_exe(char *command, char **envp);
 char	*ft_search_path(char **env);
 char	*ft_search2(char *object, char *command);
 int		ft_is_absolute(char **cmd);
+char	**ft_protsplit(char *str, char c);
+char	*ft_protstrjoin(char *s1, char *s2);
 #endif
