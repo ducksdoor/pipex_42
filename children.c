@@ -46,12 +46,7 @@ void	ft_second_children(int *fd, int pid2, char **argv, char **envp)
 		close(fd[WRITE_END]);
 		dup2(fd[READ_END], STDIN_FILENO);
 		close(fd[READ_END]);
-		fd_dest = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd_dest == -1)
-		{
-			perror("open");
-			exit(errno);
-		}
+		fd_dest = ft_open(argv[4], 2);
 		dup2(fd_dest, STDOUT_FILENO);
 		close(fd_dest);
 		ft_exe(argv[3], envp);

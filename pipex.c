@@ -16,11 +16,14 @@
 void	ft_pipex(char **argv, char **envp)
 {
 	int	fd[2];
-	int	pid1;
-	int	pid2;
+	pid_t	pid1;
+	pid_t	pid2;
 
 	if (pipe(fd) == -1)
-		exit(1);
+	{
+		perror("pipe");
+		exit(errno);
+	}
 	pid1 = fork();
 	ft_first_children(fd, pid1, argv, envp);
 	pid2 = fork();

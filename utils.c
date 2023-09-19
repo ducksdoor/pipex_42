@@ -39,7 +39,7 @@ char	*ft_search2(char *object, char *command)
 			return (finish);
 		cont++;
 	}
-	perror("command");
+	perror("error command ");
 	exit(errno);
 }
 
@@ -91,8 +91,18 @@ int	ft_open(char *file, int x)
 		texto = open(file, O_RDONLY);
 		if (texto == -1)
 		{
-			perror("open");
+			perror("open write");
 			exit(errno);
 		}
 	}
+	if (x == 2)
+	{
+		texto = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (texto == -1)
+		{
+			perror("open close");
+			exit(errno);
+		}
+	}
+	return (texto);
 }

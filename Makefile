@@ -11,7 +11,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SOURCE = pipex.c utils.c children.c protect.c bonus.c
+SOURCE = pipex.c utils.c children.c protect.c bonus.c utils_bonus.c
 
 %.o: %.c
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN)$< $(DEF_COLOR)"
@@ -24,10 +24,10 @@ OBJS_BONUS = $(SRCSBONUS:.c=.o)
 all: ${NAME}
 	
 ${NAME}: ${OBJS}
-				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN) libft $(DEF_COLOR)"
+				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN) libft $(DEF_COLOR)" | lolcat -a 
 				@make all -sC ./libft
 				@$(CC) $(SOURCE) -o $(NAME) -Llibft -lft
-				@echo "\n$(GREEN) Created $(NAME) ✓$(DEF_COLOR)\n"
+				@echo "\n$(GREEN) Created $(NAME) ✓$(DEF_COLOR)\n" 
 				@echo "$(YELLOW)    _       _       _"
 				@echo " __(.)<  __(.)>  __(.)=    Cuak!"
 				@echo " \___)   \___)   \___)$(DEF_COLOR)"
