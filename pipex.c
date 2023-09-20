@@ -12,7 +12,6 @@
 
 #include "pipex.h"
 
-
 void	ft_pipex(char **argv, char **envp)
 {
 	int	fd[2];
@@ -34,7 +33,6 @@ void	ft_pipex(char **argv, char **envp)
 	waitpid(pid2, NULL, 0);
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	if (argc < 5)
@@ -46,4 +44,12 @@ int	main(int argc, char **argv, char **envp)
 		ft_pipex(argv, envp);
 	else
 		ft_big_pipex(argc, argv, envp);
+/* 	while(1)
+	{
+
+	} */
 }
+
+
+
+//to do que de error cuando no hay path y no puedes alcanzar los cmd
