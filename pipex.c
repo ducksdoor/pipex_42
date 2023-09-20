@@ -47,9 +47,3 @@ int	main(int argc, char **argv, char **envp)
 	else
 		ft_big_pipex(argc, argv, envp);
 }
-// estas trabajando en la funcion open que esta en utils y estas trabajando en la carpeta bonus, 
-//que tienes una funcion que no entra
-
-//Ademas, tuenes qye tener en cuenta la que el bonus no termina de funcionar
-
-//el doc here es escribir en un archivo auxiliar hasta el limitador
