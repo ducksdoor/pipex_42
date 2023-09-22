@@ -76,6 +76,11 @@ void	ft_exe(char *command, char **envp)
 		else
 			object = ft_search(envp);
 			finish = ft_search2(object, cmd[0]);
+		if (!finish)
+		{
+			perror("ruta comando");
+			exit(errno);
+		}
 	}
 	execve(finish, cmd, envp);
 	perror(command);
@@ -97,7 +102,7 @@ int	ft_open(char *file, int x)
 	}
 	if (x == 2)
 	{
-		texto = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		texto = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (texto == -1)
 		{
 			perror("open close");

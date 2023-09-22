@@ -47,7 +47,7 @@ static void	ft_middle_c(int fdp[2], int fd[2], char *argv, char **envp)
 	{
 		close(fd[READ_END]);
 		dup2(fdp[READ_END], STDIN_FILENO);
-		dup2(fdp[1], STDOUT_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		ft_exe(argv, envp);
 		perror("exe");
@@ -66,6 +66,7 @@ static void	ft_process(int fdp[2], int argc, char **argv, char **envp)
 	int	i;
 	int	x;
 	int	fd[2];
+	int	aux[2];
 
 	i = 3;
 	x = 0;
@@ -76,7 +77,12 @@ static void	ft_process(int fdp[2], int argc, char **argv, char **envp)
 			perror("pipe");
 			exit(errno);
 		}
-		ft_middle_c(fdp, fd, argv[i], envp);
+		if (i == 3)
+			ft_middle_c(fdp, fd, argv[i], envp);
+		if (i > 3)
+			ft_middle_c(aux, fd, argv[i], envp);
+		aux[0] = fd[0];
+		aux[1] = fd[1];
 		i++;
 		x++;
 	}
