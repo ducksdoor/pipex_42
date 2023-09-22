@@ -1,25 +1,36 @@
 # pipex_42
 
 ![badge42](https://github.com/ducksdoor/pipex_42/assets/128644496/766bc96f-5dca-407e-a5f8-d2455489b1b4)
-(ahora mismo esto es un caos, me gusta decir que es la lluvia de ideas de mi cabeza miestras busca información sobre como hacer este proyecto...)
-#### introducción:
-En UNIX/Linux. La línea de comandos pipex se utiliza para redirigir y ejecutar el flujo de datos entre dos comandos separados por un carácter '|', similar al operador de tubería en la línea de comandos. Deben crear un programa que tome cuatro argumentos de la línea de comandos: El nombre de un archivo de entrada, dos comandos separados por el carácter '|' y el nombre de un archivo de salida.
-Usaremos.
+
+<font color="green">
+No es oro todo lo que reluce,
+
+ni toda la gente errante anda perdida;</font>
 
 
+# De mi Para ti:
+Con esto quiero decir que esta bien rebuscar información, esta bien perder el tiempo intentando cosas y practicando, probando ideas que no terminan de funcionar y rectificando para conseguir tu objetivo.
+Te dejo otra mini "Guia", no para que la copies sin sentido si no para intentar ayudarte a razonar. Para lo poco que se de programación me he encontrado muchas veces buscando información en internet, a veces con buenos resultados y otras perdiendo el tiempo, pero esto sigue siendo una habilidad que tendras que desarrollar. No voy a dejar un readmi para todo lo que hagas en la vida. Usa videos, este documento o lo que necesites. __Pero aprende!__
 
-###### Videos útiles: 
+# introducción:
+En UNIX/Linux. La línea de comandos pipex se utiliza para redirigir y ejecutar el flujo de datos entre dos comandos separados por un carácter '|', similar al operador de tubería en la línea de comandos. Deben crear un programa que tome cuatro argumentos de la línea de comandos: El nombre de un archivo de entrada, dos comandos separados (con o sin añadidos y estando entre comillas cada uno, ejemplo: ./pipex "ls -a" "wc -l" y el nombre de un archivo de salida.
+
+<img width="1526" alt="Screen Shot 2023-08-29 at 8 50 31 PM" src="https://github.com/ducksdoor/pipex_42/assets/128644496/67bb1fdc-ad87-418d-8d53-8c6997807d08">
+Esta imagen es de WhileTrueThenDream (youtuber)
+
+# Videos útiles:
+### Explicaciones
   - En este video nos explicaran como lanzar nuestros primeros procesos y datos super útiles para poder completar este proyecto.
 https://www.youtube.com/watch?v=VwjP-KFuZCM
   - Esta es la segunda parte del video anterior, muy interesante y recomenable
 https://www.youtube.com/watch?v=Dt9z_ohQWHI
 
-###### Páginas útiles:
+### Páginas útiles:
   - Si no te importa rebuscar y leer en la documentación siempre puedes entrar aqui.
 https://man7.org/linux/man-pages/man7/man-pages.7.html
 
-#### Datos que todo el mundo usa y que me ha costado que alguien me lo explique
---El dichoso numerito...
+# Datos que todo el mundo usa y que me ha costado que alguien me lo explique
+__El dichoso numerito__
 fd_dest = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     se refiere a los permisos que se están estableciendo para el archivo que se va a abrir o crear. En este caso, el número 0644 es una representación numérica de los permisos de archivo en sistemas Unix y Unix-like.
     El número 0644 se divide en tres partes:
@@ -90,5 +101,5 @@ El propósito de cada file descriptor depende de qué índice ocupe en el array.
      
      
      
-<img width="1526" alt="Screen Shot 2023-08-29 at 8 50 31 PM" src="https://github.com/ducksdoor/pipex_42/assets/128644496/67bb1fdc-ad87-418d-8d53-8c6997807d08">
+
 
