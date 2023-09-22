@@ -14,7 +14,7 @@
 
 void	ft_pipex(char **argv, char **envp)
 {
-	int	fd[2];
+	int		fd[2];
 	pid_t	pid1;
 	pid_t	pid2;
 
@@ -40,16 +40,10 @@ int	main(int argc, char **argv, char **envp)
 		ft_printf("Necesito mas argumentos");
 		exit(1);
 	}
-	if (argc == 5)
+	if (ft_strncmp("here_doc", argv[1], 10) == 0)
+		ft_stop_pipex(argc, argv, envp);
+	else if (argc == 5)
 		ft_pipex(argv, envp);
 	else
 		ft_big_pipex(argc, argv, envp);
-/* 	while(1)
-	{
-
-	} */
 }
-
-
-
-//to do que de error cuando no hay path y no puedes alcanzar los cmd

@@ -11,7 +11,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SOURCE = pipex.c utils.c children.c protect.c bonus.c utils_bonus.c
+SOURCE = pipex.c utils.c children.c protect.c bonus.c ft_error.c bonustwo.c
 
 %.o: %.c
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN)$< $(DEF_COLOR)"

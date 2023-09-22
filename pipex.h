@@ -34,6 +34,6 @@ int		ft_is_absolute(char **cmd);
 char	**ft_protsplit(char *str, char c);
 char	*ft_protstrjoin(char *s1, char *s2);
 int		ft_open(char *file, int x);
-int		ft_bool(int i);
-//void	ft_wait(int *pid, int x);
+void	ft_error(char *texto);
+void	ft_stop_pipex(int argc, char **argv, char **env);
 #endif

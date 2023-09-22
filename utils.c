@@ -39,21 +39,25 @@ char	*ft_search2(char *object, char *command)
 			return (finish);
 		cont++;
 	}
-	perror("error command ");
+	perror("error cmd");
 	exit(errno);
 }
 
-char	*ft_search(char **env)
+char	*ft_search(char **env, char *cmd)
 {
 	int		pos;
 	char	*routes;
+	char	*finish;
 
 	pos = 0;
 	while (env[pos])
 	{
 		routes = ft_strnstr(env[pos], "PATH=", 5);
 		if (routes != NULL)
-			return (routes);
+		{
+			finish = ft_search2(routes, cmd);
+			return (finish);
+		}
 		pos++;
 	}
 	return (NULL);
@@ -61,26 +65,25 @@ char	*ft_search(char **env)
 
 void	ft_exe(char *command, char **envp)
 {
-	char	*object;
 	char	*finish;
 	char	**cmd;
 
-	object = NULL;
+	finish = NULL;
 	cmd = ft_protsplit(command, ' ');
 	if (ft_is_absolute(&cmd[0]))
 		finish = cmd[0];
 	else
 	{
 		if (envp == NULL)
-			finish = ft_protstrjoin ("./", cmd[0]);
-		else
-			object = ft_search(envp);
-			finish = ft_search2(object, cmd[0]);
-		if (!finish)
 		{
-			perror("ruta comando");
-			exit(errno);
+			finish = ft_protstrjoin ("./", cmd[0]);
+			if (access(finish, F_OK) != 0)
+				ft_error(command);
 		}
+		else
+			finish = ft_search(envp, cmd[0]);
+		if (!finish)
+			ft_error("ruta comando");
 	}
 	execve(finish, cmd, envp);
 	perror(command);
@@ -95,19 +98,13 @@ int	ft_open(char *file, int x)
 	{
 		texto = open(file, O_RDONLY);
 		if (texto == -1)
-		{
-			perror("open write");
-			exit(errno);
-		}
+			ft_error("open write");
 	}
 	if (x == 2)
 	{
 		texto = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (texto == -1)
-		{
-			perror("open close");
-			exit(errno);
-		}
+			ft_error("open close");
 	}
 	return (texto);
 }
