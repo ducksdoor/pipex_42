@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	if (ft_strncmp("here_doc", argv[1], 10) == 0)
-		ft_stop_pipex(argc, argv, envp);
+		ft_here_pipex(argc, argv, envp);
 	else if (argc == 5)
 		ft_pipex(argv, envp);
 	else

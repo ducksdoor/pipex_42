@@ -1,12 +1,3 @@
-bonus.c$
-bonus.o$
-utils.c$
-utils.o$
-www$
-dd$
-sasa$
-fgh$
-ggr$
-ee$
-asdfg$
-w$
+2qwerdgfxc
+ascxa
+cara
