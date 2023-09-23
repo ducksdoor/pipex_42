@@ -7,6 +7,24 @@ No es oro todo lo que reluce,
 
 ni toda la gente errante anda perdida;</font>
 
+# INDICE! 
+
+- [🦆 De mi Para ti](#-de-mi-para-ti)
+- [Introducción](#introducción)
+- [Videos útiles](#videos-útiles)
+  - [Explicaciones en español](#explicaciones-en-español)
+  - [Explicaciones en inglés](#explicaciones-en-inglés)
+- [Páginas útiles](#páginas-útiles)
+- [Datos útiles](#datos-útiles)
+  - [El dichoso numerito](#el-dichoso-numerito)
+- [Teoría necesaria para hacer este proyecto](#teoría-necesaria-para-hacer-este-proyecto)
+  - [Descriptor de Archivo (files descriptor o FD)](#descriptor-de-archivo-files-descriptor-o-fd)
+  - [Flujo de datos (Data flow)](#flujo-de-datos-data-flow)
+  - [Introducción a Pipes](#introducción-a-pipes)
+  - [Funciones](#funciones)
+
+
+
 
 # 🦆 De mi Para ti:
 Con esto quiero decir que esta bien rebuscar información, esta bien perder el tiempo intentando cosas y practicando, probando ideas que no terminan de funcionar y rectificando para conseguir tu objetivo.
