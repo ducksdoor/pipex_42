@@ -8,7 +8,7 @@ No es oro todo lo que reluce,
 ni toda la gente errante anda perdida;</font>
 
 
-# De mi Para ti:
+# 🦆 De mi Para ti:
 Con esto quiero decir que esta bien rebuscar información, esta bien perder el tiempo intentando cosas y practicando, probando ideas que no terminan de funcionar y rectificando para conseguir tu objetivo.
 Te dejo otra mini "Guia", no para que la copies sin sentido si no para intentar ayudarte a razonar. Para lo poco que se de programación me he encontrado muchas veces buscando información en internet, a veces con buenos resultados y otras perdiendo el tiempo, pero esto sigue siendo una habilidad que tendras que desarrollar. No voy a dejar un readmi para todo lo que hagas en la vida. Usa videos, este documento o lo que necesites. __Pero aprende!__
 
@@ -19,18 +19,34 @@ En UNIX/Linux. La línea de comandos pipex se utiliza para redirigir y ejecutar 
 Esta imagen es de WhileTrueThenDream (youtuber)
 
 # Videos útiles:
-### Explicaciones
+### Explicaciones en español
   - En este video nos explicaran como lanzar nuestros primeros procesos y datos super útiles para poder completar este proyecto.
 https://www.youtube.com/watch?v=VwjP-KFuZCM
   - Esta es la segunda parte del video anterior, muy interesante y recomenable
 https://www.youtube.com/watch?v=Dt9z_ohQWHI
 
+### Explicaciones en ingles
+  - Aqui esta para un solo pipe https://www.youtube.com/watch?v=6xbLgZpOBi8&ab_channel=CodeVault
+
+Aunque este chico sube videos super interesantes, para este proyecto te pueden interesar los siguientes:
+
+  - https://www.youtube.com/watch?v=NkfIUo_Qq4c&ab_channel=CodeVault (que habla de multiples pipes)
+  - https://www.youtube.com/watch?v=94URLRsjqMQ&list=RDCMUC6qj_bPq6tQ6hLwOBpBQ42Q&start_radio=1&rv=94URLRsjqMQ&t=0&ab_channel=CodeVault (que habla de los forks...)
+
+__Hay muchos, os vuelvo a invitar a que investigueis, al final, todo lo que aprendais es para vosotr@s__
+
 ### Páginas útiles:
+
+  - https://www.rozmichelle.com/pipes-forks-dups/
+  - https://www.programacion.com.py/escritorio/c/pipes-en-c-linux
+  - https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901
+
   - Si no te importa rebuscar y leer en la documentación siempre puedes entrar aqui.
 https://man7.org/linux/man-pages/man7/man-pages.7.html
 
-# Datos que todo el mundo usa y que me ha costado que alguien me lo explique
-__El dichoso numerito__
+# Datos utiles
+#### __El dichoso numerito__
+
 fd_dest = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     se refiere a los permisos que se están estableciendo para el archivo que se va a abrir o crear. En este caso, el número 0644 es una representación numérica de los permisos de archivo en sistemas Unix y Unix-like.
     El número 0644 se divide en tres partes:
@@ -46,7 +62,7 @@ fd_dest = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
 # Teoria necesaria para hacer este proyecto:
 
-### - Descriptor de Archivo (files descriptor o FD):
+ ### __Descriptor de Archivo (files descriptor o FD)__
 
 En el contexto de Unix, la interacción con la entrada y la salida se basa en lo que se llama "descriptores de archivo" (FD). Unix tiene la característica de considerar casi todo en la computadora como un archivo, incluyendo el teclado y el monitor. Por lo tanto, escribir en la "pantalla" es, en realidad, escribir en un archivo que administra la presentación de datos en la pantalla, mientras que leer datos del teclado equivale a leer datos de un archivo que representa el teclado.
 
@@ -58,7 +74,8 @@ Estos tres flujos predeterminados se identifican mediante números de descriptor
 
 Además de los descriptores 0, 1 y 2, los procesos pueden usar otros descriptores de archivo según sus necesidades. Cuando se asigna un nuevo descriptor de archivo, se utiliza el número más bajo disponible que aún no ha sido asignado. En general, después de establecer los descriptores predeterminados 0, 1 y 2, el siguiente en la línea suele ser el descriptor 3.  
 
-### - Flujo de datos (Data flow)
+
+### __Flujo de datos (Data flow)__
 
 
 
@@ -77,8 +94,8 @@ Como ejemplos curiosos de flujos de datos tenemos los casos que no reciben entra
   - mv no requiere entrada y no produce salida: Si le doy el nombre de un archivo o directorio que pueda ser movido o renombrado con éxito, entonces no se emite ningún dato a través de stdout o stderr. Recuerda que, dado que el contenido de este archivo no se está leyendo ni utilizando de ninguna manera, el archivo que se pasa no se considera entrada. Sin embargo, si uso mv de manera incorrecta y ocurre un error, entonces habrá una salida en stderr:
 
   - Los pipes (|) permiten que la salida de un proceso se pase como entrada a otro proceso y mediante redirección de E/S (I/O redirection), se consigue que los archivos sean la fuente y el destino de datos en lugar del teclado y la terminal por defecto.
-
-### - Introducción a Pipes
+    
+### __Introducción a Pipes__
 
   - Las tuberías permiten que los datos de un proceso se pasen a otro (a través de un flujo unidireccional de datos)
   - Esta concatenación de procesos puede representarse mediante un conducto: los comandos en un conducto están conectados mediante tuberías, donde los datos se comparten entre procesos al fluir desde un extremo de la tubería hasta el otro. (aunque cada proceso (comando) se ejecuta con un espacio de memoria separado. En realidad son flujos con búfer asociados con dos descriptores de archivo que se configuran de manera que el primero pueda leer los datos escritos en el segundo.
@@ -88,16 +105,31 @@ Como ejemplos curiosos de flujos de datos tenemos los casos que no reciben entra
 Supongamos que en el código que ejecuta los comandos en el conducto, la llamada a pipe() llena un array de descriptores de archivo {3, 4} de manera que los datos escritos en 4 puedan leerse desde 3. 
 El propósito de cada file descriptor depende de qué índice ocupe en el array. hay que destacar que como los descriptores de fichero de UNIX son simplemente enteros, un pipe o tubería no es más que un array de dos enteros:
 
-### Explicación de las funciones
+# Funciones
 
-  ### - pipe(): 
-    toma un array de dos enteros, como por ejemplo int end[2], y los conecta entre sí. En una tubería, lo que se hace en end[0] es visible en end[1]
-    Además, pipe() asigna un fd  a cada extremo.      
+Pipe() es una función de sistema en C que se utiliza para crear un pipe o tubería entre dos procesos.
 
-### Ejecutando Comandos en un Conducto
+La función acepta un array de enteros de dos elementos. Después de la llamada a pipe, el primer elemento del array almacena el descriptor de archivo utilizado para leer datos desde el pipe y el segundo elemento del array almacena el descriptor de archivo utilizado para escribir datos en el pipe.
 
-     Por lo general, el proceso padre realiza cualquier configuración necesaria y luego crea un proceso hijo mediante una llamada fork(), que crea un clon del estado de memoria y los descriptores de archivo del proceso padre.
-     Después de la llamada a fork(), los cambios en el proceso padre no serán visibles para el proceso hijo y viceversa.     
+La función pipe devuelve un valor entero, -1 si hay un error y 0 si la llamada es exitosa. Los posibles errores incluyen la falta de recursos del sistema, como la memoria, o la falta de permisos para crear un pipe.
+
+Fork() es una función de sistema en C que se utiliza para crear un nuevo proceso. Después de una llamada a fork, el proceso original se divide en dos procesos diferentes: el proceso padre y el proceso hijo. Ambos procesos tienen un flujo de ejecución independiente y se ejecutan en paralelo.
+
+La función fork no tiene argumentos y devuelve un valor entero. En el proceso padre, el valor devuelto es el PID (identificador de proceso) del proceso hijo, y en el proceso hijo, el valor devuelto es 0. Si ocurre un error durante la creación del nuevo proceso, fork devuelve -1.
+
+El proceso hijo creado por fork es una copia exacta del proceso padre, incluyendo el código, los datos y el estado del proceso. Sin embargo, hay algunas diferencias importantes entre el proceso hijo y el proceso padre. Por ejemplo, el PID del proceso hijo es diferente del PID del proceso padre y los valores de retorno de fork son diferentes para el proceso hijo y el proceso padre.
+
+La función perror() toma como argumento una cadena de caracteres y escribe en la salida estándar de error (stderr) la cadena de caracteres seguida de un dos puntos, un espacio y el mensaje de error correspondiente a la última llamada al sistema que falló. El mensaje de error se obtiene a partir del valor de la variable global errno.
+
+Después de imprimir el mensaje de error, la función error llama a la función exit() para salir del programa con un código de error (EXIT_FAILURE). El código de error indica que el programa ha fallado y puede ser utilizado por el sistema operativo para identificar el tipo de error que se produjo durante la ejecución del programa.
+
+Proceso hijo y padre
+
+dup2(): int dup2(int oldfd, int newfd). En el contexto del programa pipex, la función dup2() se utiliza para redirigir la entrada o salida estándar de un proceso a través del uso de pipes. Por ejemplo, en la función child(), dup2(fd[1], STDOUT_FILENO) redirige la salida estándar del proceso hijo al extremo de escritura del pipe, mientras que dup2(filein, STDIN_FILENO) redirige la entrada estándar del proceso hijo al descriptor de archivo filein, que representa el archivo de entrada especificado en el comando.
+
+execv():
+
+STDOUT_FILENO es una constante definida en la biblioteca de encabezados <unistd.h> en C. Representa el descriptor de archivo estándar para la salida estándar (stdout). Su valor es 1.
      
      
      
