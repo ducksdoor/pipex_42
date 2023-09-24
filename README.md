@@ -252,6 +252,10 @@ __access__
 
 - Quitar el env con la linea __unset PATH__ y probar que no acepta comandos sin ruta como "ls", a no ser que se introduzca el comando en la carpeta de ejecución, como bash añade directamente el ./ aunque no lo tenga escrito, se tendrá que haber puesto en el código entregado.
 
+- Prueba a meter argumentos vacios como __""__ .
+
+- Pon rutas mal puestas tipo __/bim/__ en vez de __/bin/__  o escribe mal los argumentos
+
 - Para el bonus poner muchas veces cat por ejemplo, tendra que funcionar igualmente.
 
 # Comandos útiles
