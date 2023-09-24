@@ -6,7 +6,7 @@
 /*   By: lortega- <lortega-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:43 by lortega-          #+#    #+#             */
-/*   Updated: 2023/09/16 21:31:33 by lortega-         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:18:33 by lortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_second_children(int *fd, int pid2, char **argv, char **envp)
 		if (ft_strncmp("here_doc", argv[1], 8) != 0)
 			fd_dest = ft_open(argv[4], 2);
 		if (ft_strncmp("here_doc", argv[1], 8) == 0)
-			fd_dest = ft_open(argv[5], 2);
+			fd_dest = ft_open(argv[5], 3);
 		dup2(fd_dest, STDOUT_FILENO);
 		close(fd_dest);
 		if (ft_strncmp("here_doc", argv[1], 8) != 0)
@@ -49,7 +49,7 @@ void	ft_first_children(int *fd, int pid1, char **argv, char **envp)
 		if (ft_strncmp("here_doc", argv[1], 8) != 0)
 			texto = ft_open(argv[1], 1);
 		if (ft_strncmp("here_doc", argv[1], 8) == 0)
-			texto = ft_open(".here_doc", 3);
+			texto = ft_open(".here_doc", 1);
 		dup2(texto, STDIN_FILENO);
 		close(texto);
 		dup2(fd[WRITE_END], STDOUT_FILENO);
