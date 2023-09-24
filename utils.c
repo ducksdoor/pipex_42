@@ -108,7 +108,7 @@ int	ft_open(char *file, int x)
 	}
 	if (x == 3)
 	{
-		texto = open(file, O_CREAT | O_WRONLY, 0644);
+		texto = open(file, O_CREAT | O_WRONLY |O_APPEND, 0644);
 		if (texto == -1)
 			ft_error("open close");
 	}
