@@ -9,8 +9,13 @@ ni toda la gente errante anda perdida;</font>
 
 # INDICE! 
 
+Introducción:
+
 - [🦆 De mi Para ti](#-de-mi-para-ti)
 - [Introducción](#introducción)
+
+Documentación:
+
 - [Videos útiles](#videos-útiles)
   - [Explicaciones en español](#explicaciones-en-español)
   - [Explicaciones en inglés](#explicaciones-en-inglés)
@@ -23,10 +28,16 @@ ni toda la gente errante anda perdida;</font>
   - [Introducción a Pipes](#introducción-a-pipes)
   - [Funciones](#funciones)
 
+Proyecto:
+- [Código personal](#Código-personal)
+- [Parseo](#Parseo)
+- [Pruebas típicas](#Pruebas-típicas)
+- [Comandos útiles](Comandos-útiles)
+
 
 
 # 🦆 De mi Para ti:
-Con esto quiero decir que esta bien rebuscar información, esta bien perder el tiempo intentando cosas y practicando, probando ideas que no terminan de funcionar y rectificando para conseguir tu objetivo.
+Con esto quiero decire que esta bien rebuscar información. Es más, te invito a ello. Esta bien perder el tiempo intentando cosas y practicando, probando ideas que no terminan de funcionar y rectificando para conseguir tu objetivo.
 Te dejo otra mini "Guia", no para que la copies sin sentido si no para intentar ayudarte a razonar. Para lo poco que se de programación me he encontrado muchas veces buscando información en internet, a veces con buenos resultados y otras perdiendo el tiempo, pero esto sigue siendo una habilidad que tendras que desarrollar. No voy a dejar un readmi para todo lo que hagas en la vida. Usa videos, este documento o lo que necesites. __Pero aprende!__
 
 # introducción:
@@ -144,7 +155,10 @@ __perror()__
 
 toma como argumento una cadena de caracteres y escribe en la salida estándar de error (stderr) la cadena de caracteres seguida de un dos puntos, un espacio y el mensaje de error correspondiente a la última llamada al sistema que falló. El mensaje de error se obtiene a partir del valor de la variable global errno.
 
+__La línea de código exit(errno)__
+
 Después de imprimir el mensaje de error, la función error llama a la función exit() para salir del programa con un código de error (EXIT_FAILURE). El código de error indica que el programa ha fallado y puede ser utilizado por el sistema operativo para identificar el tipo de error que se produjo durante la ejecución del programa.
+
 
 __dup2()__
 
@@ -152,7 +166,7 @@ int dup2(int oldfd, int newfd). En el contexto del programa pipex, la función d
 
 __execv()__
 
-es una función en C que se utiliza para reemplazar la imagen de un proceso actual con una nueva imagen de proceso. Esta nueva imagen de proceso se carga desde un archivo ejecutable especificado. Es comúnmente utilizada para ejecutar otros programas desde dentro de un programa existente.
+Se utiliza para reemplazar la imagen de un proceso actual con una nueva imagen de proceso. Esta nueva imagen de proceso se carga desde un archivo ejecutable especificado. Es comúnmente utilizada para ejecutar otros programas desde dentro de un programa existente.
 
 La función execv() toma tres argumentos: el primero es la ruta al archivo ejecutable que se desea ejecutar, el segundo es un array de punteros a cadenas de caracteres que representan los argumentos pasados al programa. El último elemento de este array de argumentos debe ser NULL para indicar el final de la lista de argumentos. (Podemos usar el env).
 
@@ -162,4 +176,89 @@ Es importante destacar que si execv() tiene éxito, el proceso actual no contin�
 
 En resumen, execv() es una función esencial para la creación de nuevos procesos dentro de un programa existente, ya que permite cargar y ejecutar programas externos en el contexto de ese programa. Esto es útil para la creación de sistemas más complejos que involucran múltiples programas y procesos.
      
-     
+__waitpid()__
+
+Se utiliza para esperar a que un proceso hijo específico termine y obtener información sobre su estado de finalización.
+
+Toma tres argumentos principales:
+
+pid: El PID del proceso hijo que se desea esperar.
+status: Un puntero donde se almacena la información del estado del proceso hijo.
+options: Banderas que controlan el comportamiento de la espera.
+Después de una llamada exitosa a waitpid():
+
+Retorna el PID del proceso hijo que finalizó.
+El estado del proceso hijo se almacena en status, incluyendo su código de salida y si finalizó normalmente o debido a una señal.
+Si no hay proceso hijo que coincida con el PID especificado y se usa WNOHANG, waitpid() retorna 0.
+
+En caso de error, waitpid() retorna -1.
+
+En resumen, waitpid() permite a un proceso padre esperar y obtener información sobre procesos hijos específicos, ofreciendo un mayor control y gestión de procesos en programas escritos en C.
+
+__access()__
+
+Se usa para verificar si un archivo o directorio es accesible con los permisos especificados. Se encuentra en la biblioteca unistd.h.
+Argumentos:
+pathname: Ruta al archivo o directorio que se desea verificar.
+mode: Modo de acceso que se quiere verificar (por ejemplo, R_OK para legibilidad, W_OK para escritura, X_OK para ejecución).
+Valor de Retorno:
+
+Devuelve 0 si el acceso se verifica con éxito (cumple con los permisos especificados).
+Devuelve -1 si falla y establece errno con un código de error específico.
+Uso Típico: Utilizado para verificar los permisos de un archivo o directorio antes de realizar operaciones en él, como leer o escribir.
+
+
+# Código Personal
+
+Este proyecto ha sido mas cortito en código, aunque a cambio, ha sido mas largo en busqueda de información. Teniendo que buscar que hacía cada función y no creandolas. Un pequeño resumen de los archivos seria el siguiente:
+
+__Makefile y pipex.h__
+
+- Son los encargados de guardar las reglas de compilación y hacer por tanto que todo este funcionando. 
+
+__pipex.c__
+
+- En este archivo está el main. Desde el, se inicia el programa, tendriamos como tres ejecuciones, la normal y los dos bonus. En este archivo esta programada la ejecucion normal y el bonus de here_doc.
+
+__bonus.c__
+
+- Aquí se guardan los cambios necesarios de la función original para poder usar varios pipex con varios comandos, es decir, el bonus del proyecto
+
+__utils.c y protect.c__
+
+- Son las funciones necesarias, tanto para el buen funcionamiento del proyecto, como para las protecciones necesarias del mismo. En utils por ejemplo esta programada toda la busqueda del PATH y la gestión de los comandos que añades en la terminal.
+
+# Parseo
+
+__PATH=__
+
+- La función exeve necesita encontrar las rutas en las que se encuentran los ejecutables de los comandos que vamos a usar, (como por ejemplo ls, wc, cat...) Para ello lo buscara en el env.
+
+- Tendremos que encontrar el Path, que sera algo parecido a PATH=/Users/lortega-/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki. Esto es sencillo de encontrar buscando en la variable **env el principio de linea (ft_search)
+
+- Una vez que tengamos esto, podremos usar la funión split para separar cada una de las rutas. Si a estas rutas las unimos con los comandos podremos probar con la función access si hemos encontrado la ruta valida.
+
+__Comandos__
+
+- Los comandos pueden venir como rutas relativas (ls) o absulatas ("/bin/wc"). Ademas, pueden venir con flags ("cat -e") o con los añadidos necesarios como ("grep hola"), si el comando que te se introduce necesita poner un espacio para completarse ("ls -l") se tendra que introducir entre dobles comillas. Si viene entre comillas tendras que usar split en el comando.
+
+__access__
+
+- Ahora que tenemos tanto el path como el comando se puede usar acces, simplemente tendremos que conseguir algo parecido a /bin/ls en cualquiera de las opciones
+
+# Pruebas típicas
+
+- No tener acceso a los archivos o que no existen, por tanto tiene que dar error.
+
+- Quitar el env con la linea __unset PATH__ y probar que no acepta comandos sin ruta como "ls", a no ser que se introduzca el comando en la carpeta de ejecución, como bash añade directamente el ./ aunque no lo tenga escrito, se tendrá que haber puesto en el código entregado.
+
+- Para el bonus poner muchas veces cat por ejemplo, tendra que funcionar igualmente.
+
+# Comandos útiles
+
+  void	leaks(void)
+  {
+	  system("leaks -q pipex");
+  }
+
+  	atexit(leaks);

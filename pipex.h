@@ -35,5 +35,6 @@ char	**ft_protsplit(char *str, char c);
 char	*ft_protstrjoin(char *s1, char *s2);
 int		ft_open(char *file, int x);
 void	ft_error(char *texto);
-void	ft_here_pipex(int argc, char **argv, char **env);
+int		protect_loop(int fd, char *line, char *argv);
+
 #endif

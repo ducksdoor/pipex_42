@@ -19,7 +19,7 @@ static void	ft_last_children(int fd[2], int argc, char **argv, char **envp)
 
 	pidf = fork();
 	if (pidf < 0)
-		return ;
+		ft_error("fork");
 	if (pidf == 0)
 	{
 		dup2(fd[READ_END], STDIN_FILENO);
@@ -28,9 +28,10 @@ static void	ft_last_children(int fd[2], int argc, char **argv, char **envp)
 		dup2(fd_dest, STDOUT_FILENO);
 		close(fd_dest);
 		ft_exe(argv[argc - 2], envp);
-		perror("exe");
-		exit(errno);
+		ft_error("exe");
 	}
+	else
+		waitpid(pidf, NULL, 0);
 }
 
 static void	ft_middle_c(int fdp[2], int fd[2], char *argv, char **envp)
@@ -39,10 +40,7 @@ static void	ft_middle_c(int fdp[2], int fd[2], char *argv, char **envp)
 
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("fork");
-		exit(errno);
-	}
+		ft_error("fork");
 	if (pid == 0)
 	{
 		close(fd[READ_END]);
@@ -50,15 +48,10 @@ static void	ft_middle_c(int fdp[2], int fd[2], char *argv, char **envp)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		ft_exe(argv, envp);
-		perror("exe");
-		exit(errno);
+		ft_error("exe");
 	}
-	else
-	{
-		close(fdp[READ_END]);
-		close(fd[WRITE_END]);
-	}
-	return ;
+	close(fdp[READ_END]);
+	close(fd[WRITE_END]);
 }
 
 static void	ft_process(int fdp[2], int argc, char **argv, char **envp)
@@ -73,10 +66,7 @@ static void	ft_process(int fdp[2], int argc, char **argv, char **envp)
 	while (x < (argc - 5))
 	{
 		if (pipe(fd) == -1)
-		{
-			perror("pipe");
-			exit(errno);
-		}
+			ft_error("pipe");
 		if (i == 3)
 			ft_middle_c(fdp, fd, argv[i], envp);
 		if (i > 3)
@@ -95,10 +85,7 @@ void	ft_big_pipex(int argc, char **argv, char **envp)
 	pid_t	pid;
 
 	if (pipe(fd) == -1)
-	{
-		perror("pipe:");
-		exit(errno);
-	}
+		ft_error("pipe:");
 	pid = fork();
 	ft_first_children(fd, pid, argv, envp);
 	close(fd[WRITE_END]);

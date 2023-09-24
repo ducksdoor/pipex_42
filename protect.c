@@ -18,10 +18,7 @@ char	**ft_protsplit(char *str, char c)
 
 	result = ft_split(str, c);
 	if (!result)
-	{
-		perror("split");
-		exit(errno);
-	}
+		ft_error("split");
 	return (result);
 }
 
@@ -31,9 +28,25 @@ char	*ft_protstrjoin(char *s1, char *s2)
 
 	result = ft_strjoin(s1, s2);
 	if (!result)
-	{
-		perror("strjoin");
-		exit(errno);
-	}
+		ft_error("strjoin");
 	return (result);
+}
+
+int	protect_loop(int fd, char *line, char *argv)
+{
+	int	x;
+
+	x = 1;
+	if (ft_strncmp(line, argv, ft_strlen(argv)) == 0
+		&& ft_strlen(line) - 1 == ft_strlen(argv))
+		x = 0;
+	if (x == 1)
+		write(fd, line, ft_strlen(line));
+	return (x);
+}
+
+void	ft_error(char *texto)
+{
+	perror(texto);
+	exit(errno);
 }
